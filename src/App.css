@@ -1,7 +1,14 @@
 .App {
   text-align: center;
 }
-
+body{
+  background-image: url(./bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.card.bg{
+  background: #273c75;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -11,6 +18,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.container{
+  width: 87%;
 }
 
 .App-header {
