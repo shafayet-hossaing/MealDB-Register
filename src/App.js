@@ -4,7 +4,9 @@ import {
 import './App.css';
 import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
+import Login from "./Components/Login/Login";
 import DataContext from "./Context/DataContext";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 function App() {
   return (
@@ -13,8 +15,11 @@ function App() {
         <Router>
           <Header></Header>
           <Switch>
-            <Route exact path="/home">
+            <PrivateRoute exact path="/home">
               <Home></Home>
+            </PrivateRoute>
+            <Route path="/login">
+              <Login></Login>
             </Route>
           </Switch>
         </Router>
