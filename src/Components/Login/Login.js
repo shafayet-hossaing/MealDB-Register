@@ -1,13 +1,28 @@
 import { Button, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import useData from '../../Hooks/useData';
 
 const Login = () => {
-    const {googleAuth} = useData()
+    const {googleAuth, setUser, setIsLoading} = useData()
+    const location = useLocation()
+    const history = useHistory()
+    const redirect = location.state?.from || "/home"
     const formControl = e => {
         e.preventDefault()
+    }
+
+    const handleGoogleLogin = () => {
+        googleAuth()
+        .then(result => {
+            const user = result.user
+            console.log(user);
+            setUser(user)
+            history.push(redirect)
+        }).finally(() => {
+            setIsLoading(false)
+        })
     }
     return (
         <div>
@@ -43,7 +58,7 @@ const Login = () => {
                 </div>
                 <div>
                 <Button type="submit" className="me-3" variant="contained">Login</Button>
-                <Button onClick={googleAuth} type="submit" variant="contained">Login With Google</Button>
+                <Button onClick={handleGoogleLogin} type="submit" variant="contained">Login With Google</Button>
                 <Link style={{marginLeft: "30px", textDecoration: "none"}} to="/registration">Don't Have An Account?</Link>
                 </div>
             </Box>

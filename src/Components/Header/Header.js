@@ -7,6 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import useData from '../../Hooks/useData';
+import useDataProvider from '../../Hooks/useDataProvider';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const Header = () => {
+  const {user, logOut} = useDataProvider()
 
   const {setSearch} = useData()
   const searchForTheMeal = event => {
@@ -74,7 +76,12 @@ const Header = () => {
                 <Link style={{textDecoration: "none", color: "white", fontSize: "16px", marginRight: "40px"}} to="/home">Home</Link>
                 <Link style={{textDecoration: "none", color: "white", fontSize: "16px", marginRight: "40px"}} to="/about">About</Link>
                 <Link style={{textDecoration: "none", color: "white", fontSize: "16px", marginRight: "40px"}} to="/contact">Contact</Link>
-                <Link style={{textDecoration: "none", color: "white", fontSize: "16px", marginRight: "40px"}} to="/login">Login</Link>
+                {/* <Link style={{textDecoration: "none", color: "white", fontSize: "16px", marginRight: "40px"}} to="/login">Login</Link> */}
+                {
+                  user?.email ? <button onClick={logOut}  className="btn btn-light"><Link style={{textDecoration: "none"}} to="/login">Log Out</Link></button>
+                  :
+                  <button className="btn btn-light"><Link style={{textDecoration: "none"}} to="/login">Log In</Link></button>
+                }
               </Typography>
               <Search>
                 <SearchIconWrapper>

@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { useEffect, useState } from 'react';
 import initializeAuthentication from '../Firebase/Firebase.init';
 
@@ -11,6 +11,8 @@ const useDataProvider = () => {
     const [search, setSearch] = useState('')
     const [user, setUser] = useState({})
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
         .then(res => res.json())
@@ -19,17 +21,38 @@ const useDataProvider = () => {
 
     // Google Authentication
     const googleAuth = () => {
-        signInWithPopup(auth, googleProvider)
-        .then(result => {
-            const user = result.user
-            console.log(user);
-            setUser(user)
-        }).catch(error => {
-            setError(error.message)
-        })
+        setIsLoading(true)
+        return signInWithPopup(auth, googleProvider)
+        
     }
 
-    return {products, setProducts, setSearch, googleAuth, user}
+    // Currently singed In user
+        useEffect(() => {
+            const unSubscribed = onAuthStateChanged(auth, user => {
+                if(user){
+                    setUser(user)
+                }else{
+                    setUser({})
+                }
+                setIsLoading(false)
+            })
+            return () => unSubscribed
+        },[])
+
+
+
+    // Log Out
+    const logOut = () => {
+        signOut(auth)
+        .then(() => {})
+        .finally(() => {
+            setIsLoading(false)
+        })
+    }
+    
+    
+
+    return {products, setProducts, setSearch, googleAuth, user, setUser, logOut, isLoading, setIsLoading}
 };
 
 export default useDataProvider;

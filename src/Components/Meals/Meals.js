@@ -1,8 +1,10 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Meals = (props) => {
-    const {strMeal, strMealThumb, strInstructions} = props.product
+    const {strMeal, strMealThumb, strInstructions, idMeal} = props.product
+
     return (
             <Grid sx={{marginTop: 5}} item md={4} xs={12} sm={6}>
                 <Card className="text-white shadow" style={{backgroundColor: "#043266", padding: "8px solid white", borderRadius: "10px"}}>
@@ -21,7 +23,7 @@ const Meals = (props) => {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                            <Button variant="outlined">Details</Button>
+                            <Button variant="outlined"><Link style={{textDecoration: "none"}} to={`meal/${idMeal}`}>Details</Link></Button>
                     </CardActions>
                 </Card>
             </Grid>

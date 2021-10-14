@@ -3,7 +3,10 @@ import { Redirect, Route } from 'react-router';
 import useData from '../Hooks/useData';
 
 const PrivateRoute = ({children, ...rest}) => {
-    const {user} = useData()
+    const {user, isLoading} = useData()
+    if(isLoading){
+        return <h2>Loading...</h2>
+    }
     return (
         <Route
             {...rest}
