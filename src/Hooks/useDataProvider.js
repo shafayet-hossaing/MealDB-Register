@@ -52,7 +52,7 @@ const useDataProvider = () => {
     
     
 
-    return {products, setProducts, setSearch, googleAuth, user, setUser, logOut, isLoading, setIsLoading}
+    return {products, setProducts, setSearch, googleAuth, user, setUser, logOut, isLoading, setIsLoading, setError}
 };
 
 export default useDataProvider;

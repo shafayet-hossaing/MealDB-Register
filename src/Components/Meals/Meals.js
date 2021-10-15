@@ -23,7 +23,7 @@ const Meals = (props) => {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                            <Button variant="outlined"><Link style={{textDecoration: "none"}} to={`meal/${idMeal}`}>Details</Link></Button>
+                            <Button variant="outlined"><Link style={{textDecoration: "none", textTransform: "capitalize"}} to={`meal/${idMeal}`}>Order Now</Link></Button>
                     </CardActions>
                 </Card>
             </Grid>
